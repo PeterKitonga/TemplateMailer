@@ -12,6 +12,9 @@
 
         <!-- Styles -->
         <link href="{!! asset('materialize/css/materialize.min.css') !!}" rel="stylesheet">
+        <link href="{!! asset('themify-icons/css/themify-icons.css') !!}" rel="stylesheet">
+        @stack('styles')
+        <link href="{!! asset('css/custom.css') !!}" rel="stylesheet">
 
         <!-- Scripts -->
         <script>
@@ -62,5 +65,7 @@
         <!-- Scripts -->
         <script src="{!! asset('js/jquery-3.1.0.min.js') !!}"></script>
         <script src="{!! asset('materialize/js/materialize.min.js') !!}"></script>
+        <script src="{!! asset('js/custom.js') !!}"></script>
+        @stack('scripts')
     </body>
 </html>
