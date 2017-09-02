@@ -11,7 +11,7 @@ class Role extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['role_name', 'role_slug'];
+    protected $fillable = ['role_name', 'role_slug', 'role_permissions'];
 
     public function users()
     {
