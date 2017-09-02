@@ -33,6 +33,7 @@
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
+                        <li><a href="{{ url('/recipients') }}">Recipients</a></li>
                         <li>
                             <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
                                 Logout
@@ -48,6 +49,7 @@
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
+                        <li><a href="{{ url('/recipients') }}">Recipients</a></li>
                         <li>
                             <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
                                 Logout
@@ -71,6 +73,17 @@
         <!-- Scripts -->
         <script src="{!! asset('js/jquery-3.1.0.min.js') !!}"></script>
         <script src="{!! asset('materialize/js/materialize.min.js') !!}"></script>
+        <script>
+            $(function () {
+                var status = '{!! Request()->session()->get('status') !!}';
+
+                if(status !== '')
+                {
+                    Materialize.toast(status, 10000);
+                    {!! Request()->session()->forget('success') !!}
+                }
+            });
+        </script>
         <script src="{!! asset('js/custom.js') !!}"></script>
         @stack('scripts')
     </body>
