@@ -24,6 +24,30 @@
         </div>
     </div>
     <div class="row">
+        <div id="modal-add-recipient" class="modal">
+            <form id="add-recipient-form" action="" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-content">
+                    <h5></h5>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="mail_recipient_name" id="mail-recipient-name" class="validate" placeholder="Recipient Name" value="{{ old('mail_recipient_name') }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="mail_recipient_email" id="mail-recipient-email" class="validate" placeholder="Recipient Email" value="{{ old('mail_recipient_email') }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    <button type="submit" class="modal-action waves-effect waves-green btn-flat">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
         <div id="modal-import-excel" class="modal">
             <form id="import-excel-form" action="" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}

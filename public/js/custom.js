@@ -14,9 +14,20 @@ appRender = {
             buttons: [
                 {extend: 'pageLength'},
                 {
+                    text: '<i class="ti-plus"></i> Add Recipient',
+                    className: 'modal-trigger',
+                    action: function (e, dt, node, config) {
+                        var url = '/recipients/store';
+                        var $modal = $("#modal-add-recipient");
+                        $modal.find("#add-recipient-form").attr('action', url);
+                        $modal.find('h5').html('Add Recipient');
+                        $modal.modal('open');
+                    }
+                },
+                {
                     text: '<i class="ti-upload"></i> Excel Import',
                     className: 'modal-trigger',
-                    action: function ( e, dt, node, config ) {
+                    action: function (e, dt, node, config) {
                         var url = '/recipients/import';
                         var $modal = $("#modal-import-excel");
                         $modal.find("#import-excel-form").attr('action', url);
@@ -35,7 +46,7 @@ appRender = {
                 {data:'created_at', name:'created_at'},
                 {data:'actions', name:'actions', orderable: false, searchable:false}
             ],
-            drawCallback: function(e) {
+            drawCallback: function() {
                 $(".dropdown-button").dropdown({
                     belowOrigin: true
                 });
