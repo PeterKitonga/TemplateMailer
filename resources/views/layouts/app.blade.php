@@ -10,6 +10,9 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
         <!-- Styles -->
         <link href="{!! asset('materialize/css/materialize.min.css') !!}" rel="stylesheet">
         <link href="{!! asset('themify-icons/css/themify-icons.css') !!}" rel="stylesheet">
