@@ -31,6 +31,18 @@ class User extends Authenticatable
         'deleted_at'
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords($value);
+    }
+
+    public function activated()
+    {
+        $this->activation_status = 1;
+        $this->activation_code = null;
+        $this->save();
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user');
@@ -59,6 +71,6 @@ class User extends Authenticatable
      */
     public function inRole(string $roleSlug)
     {
-        return $this->roles()->where('role_slug', $roleSlug)->count() == 1;
+        return $this->roles()->getQuery()->where('role_slug', $roleSlug)->count() == 1;
     }
 }
