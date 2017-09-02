@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MailRecipient;
 use Box\Spout\Common\Type;
 use Box\Spout\Reader\ReaderFactory;
 use Carbon\Carbon;
@@ -20,9 +21,17 @@ class MailRecipientController extends Controller
         return view('recipients.index');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return redirect()->back();
+        $recipient = new MailRecipient([
+            'user_id' => $request->user()->id,
+            'mail_recipient_name' => $request->get('mail_recipient_name'),
+            'mail_recipient_email' => $request->get('mail_recipient_email')
+        ]);
+
+        $recipient->save();
+
+        return redirect()->back()->with('status', 'Successfully added recipient: '.$request->get('mail_recipient_name'));
     }
 
     public function update()
