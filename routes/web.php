@@ -29,3 +29,16 @@ Route::get('/home', 'HomeController@index');
 
 /*========================= Activation Route ======================*/
 Route::get('activate/account/{code}', ['as' => 'activate.account', 'uses' => 'Auth\RegisterController@activate']);
+
+/*========================= Recipients Routes ======================*/
+Route::group(['prefix' => 'recipients'], function () {
+    Route::get('/', 'MailRecipientController@index')->name('recipients.index');
+    Route::post('store', 'MailRecipientController@store')->name('recipients.store');
+    Route::post('update/{id}', 'MailRecipientController@update')->name('recipients.update');
+    Route::delete('delete/{id}', 'MailRecipientController@destroy')->name('recipients.delete');
+});
+
+/*========================= Datatables Routes ======================*/
+Route::group(['prefix' => 'datatables'], function () {
+    Route::get('fetch/recipients', 'DatatablesController@fetchRecipients')->name('datatables.fetch.recipients');
+});
