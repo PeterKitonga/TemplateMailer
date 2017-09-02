@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\EmailVerification;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -42,6 +43,19 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm(Request $request)
+    {
+        $request->session()->flash('error', 'Registration has been disabled. Please contact the administrators for assistance');
+
+        return redirect('login');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -73,19 +87,6 @@ class RegisterController extends Controller
         $user -> roles()->attach(2);
 
         return $user;
-    }
-
-    /**
-     * Show the application registration form.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function showRegistrationForm(Request $request)
-    {
-        $request->session()->flash('error', 'Registration has been disabled. Please contact the administrators for assistance');
-
-        return redirect('login');
     }
 
     /**
