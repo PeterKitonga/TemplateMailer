@@ -12,4 +12,14 @@ class MailSchedule extends Model
     protected $fillable = ['user_id', 'mail_template_id', 'schedule_date', 'schedule_time'];
 
     protected $dates = ['deleted_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function mailTemplate()
+    {
+        return $this->belongsTo(MailTemplate::class);
+    }
 }

@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasMany(MailTemplate::class);
     }
 
+    public function mailSchedules()
+    {
+        return $this->hasMany(MailSchedule::class);
+    }
+
     /**
      * Checks if User has access to $permissions.
      * @param array $permissions
