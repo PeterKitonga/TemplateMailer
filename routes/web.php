@@ -11,6 +11,7 @@
 |
 */
 
+/*========================= Landing Route ======================*/
 Route::get('/', function () {
     if (Auth::guest())
     {
@@ -20,6 +21,11 @@ Route::get('/', function () {
     }
 });
 
+/*========================= Authentication Routes ======================*/
 Auth::routes();
 
+/*========================= Home Route ======================*/
 Route::get('/home', 'HomeController@index');
+
+/*========================= Activation Route ======================*/
+Route::get('activate/account/{code}', ['as' => 'activate.account', 'uses' => 'Auth\RegisterController@activate']);
