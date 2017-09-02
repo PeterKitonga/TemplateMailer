@@ -17,4 +17,9 @@ class MailRecipient extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function mailSchedules()
+    {
+        return $this->belongsToMany(MailSchedule::class, 'mail_template_schedule_recipient')->withPivot('mail_template_id');
+    }
 }
