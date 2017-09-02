@@ -22,4 +22,9 @@ class MailTemplate extends Model
     {
         return $this->hasMany(MailSchedule::class);
     }
+
+    public function mailLogs()
+    {
+        return $this->hasMany(MailLog::class);
+    }
 }

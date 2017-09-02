@@ -17,9 +17,14 @@ class MailSchedule extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function mailTemplate()
     {
         return $this->belongsTo(MailTemplate::class);
+    }
+
+    public function mailLogs()
+    {
+        return $this->hasMany(MailLog::class);
     }
 }

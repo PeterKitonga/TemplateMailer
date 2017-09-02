@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->hasMany(MailSchedule::class);
     }
 
+    public function mailLogs()
+    {
+        return $this->hasMany(MailLog::class);
+    }
+
     /**
      * Checks if User has access to $permissions.
      * @param array $permissions
