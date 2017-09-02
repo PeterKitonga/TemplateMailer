@@ -71,11 +71,6 @@
         <!-- Scripts -->
         <script src="{!! asset('js/jquery-3.1.0.min.js') !!}"></script>
         <script src="{!! asset('materialize/js/materialize.min.js') !!}"></script>
-        <script>
-            $(".dropdown-button").dropdown({
-                belowOrigin: true
-            });
-        </script>
         <script src="{!! asset('js/custom.js') !!}"></script>
         @stack('scripts')
     </body>
