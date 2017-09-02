@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->hasMany(MailLog::class);
     }
 
+    public function mailRecipient()
+    {
+        return $this->hasMany(MailRecipient::class);
+    }
+
     /**
      * Checks if User has access to $permissions.
      * @param array $permissions
