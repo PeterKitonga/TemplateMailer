@@ -33,6 +33,32 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany('App\Role', 'role_user');
+        return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    /**
+     * Checks if User has access to $permissions.
+     * @param array $permissions
+     * @return bool
+     */
+    public function hasAccess(array $permissions) : bool
+    {
+        // check if the permission is available in any role
+        foreach ($this->roles as $role) {
+            if($role->hasAccess($permissions)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the user belongs to role.
+     * @param string $roleSlug
+     * @return bool
+     */
+    public function inRole(string $roleSlug)
+    {
+        return $this->roles()->where('role_slug', $roleSlug)->count() == 1;
     }
 }
