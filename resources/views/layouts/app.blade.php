@@ -25,40 +25,43 @@
         </script>
     </head>
     <body>
-        <ul id="user-dropdown" class="dropdown-content">
-            <li>
-                <a href="{{ url('/logout') }}"
-                   onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                    Logout
-                </a>
-
-                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-            </li>
-        </ul>
         <nav>
             <div class="nav-wrapper">
                 <a href="{{ url('/') }}" class="brand-logo">{{ config('app.name', 'Laravel') }}</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                    @else
-                        <li>
-                            <a class="dropdown-button" href="#" data-activates="user-dropdown">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a>
-                        </li>
-                    @endif
-                </ul>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="ti-menu"></i></a>
                 <ul class="side-nav" id="mobile-demo">
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
                         <li>
-                            <a class="dropdown-button" href="#" data-activates="user-dropdown">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a>
+                            <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                         </li>
                     @endif
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}">Login</a></li>
+                    @else
+                        <li>
+                            <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    @endif
+                </ul>
+
+                <ul id="user-dropdown" class="dropdown-content">
+
                 </ul>
             </div>
         </nav>
@@ -68,6 +71,11 @@
         <!-- Scripts -->
         <script src="{!! asset('js/jquery-3.1.0.min.js') !!}"></script>
         <script src="{!! asset('materialize/js/materialize.min.js') !!}"></script>
+        <script>
+            $(".dropdown-button").dropdown({
+                belowOrigin: true
+            });
+        </script>
         <script src="{!! asset('js/custom.js') !!}"></script>
         @stack('scripts')
     </body>
