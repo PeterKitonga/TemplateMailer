@@ -26,14 +26,11 @@ class DatatablesController extends Controller
                 return Carbon::parse($recipient->created_at)->toFormattedDateString();
             })
             ->addColumn('actions', function ($recipient) {
-                return '<a class="dropdown-button btn" href="#" data-beloworigin="true" data-activates="actions">Drop Me!</a>
+                return '<a class="dropdown-button btn red" href="#" data-hover="true" data-beloworigin="true" data-activates="actions">More</a>
                         <ul id="actions" class="dropdown-content">
-                            <li><a href="#">one</a></li>
-                            <li><a href="#">two</a></li>
+                            <li><a href="#">Edit</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">three</a></li>
-                            <li><a href="#"><i class="material-icons">view_module</i>four</a></li>
-                            <li><a href="#"><i class="material-icons">cloud</i>five</a></li>
+                            <li><a href="#">Remove</a></li>
                         </ul>';
             })
             ->make(true);

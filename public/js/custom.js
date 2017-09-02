@@ -2,6 +2,7 @@ $(".button-collapse").sideNav();
 $(".dropdown-button").dropdown({
     belowOrigin: true
 });
+$('.modal').modal();
 
 appRender = {
     initRecipients: function() {
@@ -13,17 +14,14 @@ appRender = {
             buttons: [
                 {extend: 'pageLength'},
                 {
-                    text: '<i class="icon-login"></i> Excel Import',
+                    text: '<i class="ti-upload"></i> Excel Import',
+                    className: 'modal-trigger',
                     action: function ( e, dt, node, config ) {
-                        var url = '';
-                        $("#import-excel-form").attr('action', url);
-                        $("#modal-import-excel").modal('show');
-                    }
-                },
-                {
-                    text: '<i class="icon-logout"></i> Excel Export',
-                    action: function ( e, dt, node, config ) {
-                        window.location = '';
+                        var url = '/recipients/import';
+                        var $modal = $("#modal-import-excel");
+                        $modal.find("#import-excel-form").attr('action', url);
+                        $modal.find('h5').html('Recipients Excel Import'+'<a class="btn red right" href="/recipients/download/template">Download Template</a>');
+                        $modal.modal('open');
                     }
                 }
             ],
@@ -31,12 +29,17 @@ appRender = {
                 [10, 25, 50, -1],
                 ['10', '25', '50', 'Show all']
             ],
-                columns : [
+            columns : [
                 {data:'mail_recipient_name', name:'mail_recipient_name'},
                 {data:'mail_recipient_email', name:'mail_recipient_email'},
                 {data:'created_at', name:'created_at'},
                 {data:'actions', name:'actions', orderable: false, searchable:false}
-            ]
+            ],
+            drawCallback: function(e) {
+                $(".dropdown-button").dropdown({
+                    belowOrigin: true
+                });
+            }
         });
     }
 };
