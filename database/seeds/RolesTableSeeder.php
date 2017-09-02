@@ -17,31 +17,26 @@ class RolesTableSeeder extends Seeder
 
         DB::table('roles')->delete();
 
-        DB::table('roles')->insert(array(
-            array(
-                'role_name' => 'Administrator',
-                'role_slug' => 'administrator',
-                'role_permissions' => json_encode([
-                    'create-user' => true,
-                    'update-user' => true,
-                    'deactivate-user' => true,
-                    'delete-user' => true
-                ]),
-                'created_at' => Carbon\Carbon::now(),
-                'updated_at' => Carbon\Carbon::now()
-            ),
-            array(
-                'role_name' => 'Subscriber',
-                'role_slug' => 'subscriber',
-                'role_permissions' => json_encode([
-                    'create-mail' => true,
-                    'update-mail' => true,
-                    'schedule-mail' => true,
-                    'delete-mail' => true
-                ]),
-                'created_at' => Carbon\Carbon::now(),
-                'updated_at' => Carbon\Carbon::now()
-            )
+        \App\Role::create(array(
+            'role_name' => 'Administrator',
+            'role_slug' => 'administrator',
+            'role_permissions' => [
+                'create-user' => true,
+                'update-user' => true,
+                'deactivate-user' => true,
+                'delete-user' => true
+            ]
+        ));
+
+        \App\Role::create(array(
+            'role_name' => 'Subscriber',
+            'role_slug' => 'subscriber',
+            'role_permissions' => [
+                'create-mail' => true,
+                'update-mail' => true,
+                'schedule-mail' => true,
+                'delete-mail' => true
+            ]
         ));
     }
 }
