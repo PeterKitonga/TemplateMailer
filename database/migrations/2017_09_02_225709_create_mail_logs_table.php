@@ -15,7 +15,7 @@ class CreateMailLogsTable extends Migration
     {
         Schema::create('mail_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('recipient_email')->nullable();
+            $table->string('mail_recipient_email')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('mail_template_id')->unsigned();
