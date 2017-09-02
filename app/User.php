@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'profile_image', 'activation_status', 'activation_code',  'login_status', 'last_login'
     ];
 
     /**
@@ -26,4 +26,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'role_user');
+    }
 }
