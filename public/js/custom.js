@@ -94,5 +94,52 @@ appRender = {
                 });
             }
         });
+    },
+    initTemplates: function() {
+        $('#templates-table').DataTable({
+            serverSide: true,
+            ajax: '/datatables/fetch/templates',
+            order: [[3, 'desc']],
+            dom: 'Brtip',
+            buttons: [
+                {extend: 'pageLength'},
+                {
+                    text: '<i class="ti-plus"></i> Add Template',
+                    className: 'modal-trigger',
+                    action: function (e, dt, node, config) {
+                        window.location = '/templates/create';
+                    }
+                }
+            ],
+            lengthMenu: [
+                [10, 25, 50, -1],
+                ['10', '25', '50', 'Show all']
+            ],
+            columns : [
+                {data:'mail_subject', name:'mail_subject'},
+                {data:'mail_title', name:'mail_title'},
+                {data:'mail_body_content', name:'mail_body_content'},
+                {data:'created_at', name:'created_at'},
+                {data:'actions', name:'actions', orderable: false, searchable:false}
+            ],
+            drawCallback: function(settings) {
+                // Access Datatables API methods
+                var $api = new $.fn.dataTable.Api(settings);
+
+                $(".dropdown-button").dropdown({
+                    belowOrigin: true
+                });
+
+                $('.delete-confirm').on('click', function () {
+                    var url = $(this).attr('data-link');
+                    var row = $api.row($(this).closest('tr')).data();
+                    var $modal = $('#modal-delete-confirm');
+
+                    $modal.find('h5').html('Remove Recipient: '+row.mail_subject);
+                    $modal.find("#delete-confirm-form").attr('action', url);
+                    $modal.modal('open');
+                });
+            }
+        });
     }
 };
