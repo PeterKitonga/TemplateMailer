@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MailRecipient;
+use App\MailTemplate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,27 @@ class DatatablesController extends Controller
                             <li><a href="#" data-link="'.route('recipients.update').'" class="edit-recipient">Edit</a></li>
                             <li class="divider"></li>
                             <li><a href="#" data-link="'.route('recipients.delete', [$recipient->id]).'" class="delete-confirm">Remove</a></li>
+                        </ul>';
+            })
+            ->make(true);
+    }
+
+    public function fetchTemplates()
+    {
+        $user = Auth::user();
+
+        $query = MailTemplate::query()->where('user_id', $user->id);
+
+        return Datatables::of($query)
+            ->editColumn('created_at', function ($template) {
+                return Carbon::parse($template->created_at)->toFormattedDateString();
+            })
+            ->addColumn('actions', function ($template) {
+                return '<a class="dropdown-button btn red" href="#" data-hover="true" data-beloworigin="true" data-activates="actions'.$template->id.'">More</a>
+                        <ul id="actions'.$template->id.'" class="dropdown-content">
+                            <li><a href="'.route('templates.edit').'" class="edit-template">Edit</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" data-link="'.route('templates.delete', [$template->id]).'" class="delete-confirm">Remove</a></li>
                         </ul>';
             })
             ->make(true);
