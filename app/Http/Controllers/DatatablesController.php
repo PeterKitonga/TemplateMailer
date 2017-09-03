@@ -53,7 +53,7 @@ class DatatablesController extends Controller
             ->addColumn('actions', function ($template) {
                 return '<a class="dropdown-button btn red" href="#" data-hover="true" data-beloworigin="true" data-activates="actions'.$template->id.'">More</a>
                         <ul id="actions'.$template->id.'" class="dropdown-content">
-                            <li><a href="'.route('templates.edit').'" class="edit-template">Edit</a></li>
+                            <li><a href="'.route('templates.edit', [$template->id]).'" class="edit-template">Edit</a></li>
                             <li class="divider"></li>
                             <li><a href="#" data-link="'.route('templates.delete', [$template->id]).'" class="delete-confirm">Remove</a></li>
                         </ul>';

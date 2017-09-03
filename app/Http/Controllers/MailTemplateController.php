@@ -42,9 +42,27 @@ class MailTemplateController extends Controller
         return redirect('templates');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view('templates.edit');
+        $template = MailTemplate::query()->findOrFail($id);
+
+        return view('templates.edit', compact('template'));
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'mail_subject' => 'required',
+            'mail_body_content' => 'required',
+            'mail_title' => 'required'
+        ]);
+
+        $templateId = $request->get('template_id');
+
+        $template = MailTemplate::query()->findOrFail($templateId);
+        $template->update($request->all());
+
+        return redirect('templates');
     }
 
     public function getContent($templateId)

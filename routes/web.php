@@ -44,7 +44,7 @@ Route::group(['prefix' => 'recipients'], function () {
 Route::group(['prefix' => 'templates'], function () {
     Route::get('/', 'MailTemplateController@index')->name('templates.index');
     Route::get('create', 'MailTemplateController@create')->name('templates.create');
-    Route::get('edit', 'MailTemplateController@edit')->name('templates.edit');
+    Route::get('edit/{id}', 'MailTemplateController@edit')->name('templates.edit');
     Route::get('get/{id}/body', 'MailTemplateController@getContent')->name('templates.get.body');
     Route::post('store', 'MailTemplateController@store')->name('templates.store');
     Route::post('update', 'MailTemplateController@update')->name('templates.update');
