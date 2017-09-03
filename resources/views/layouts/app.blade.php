@@ -69,6 +69,7 @@
         </nav>
 
         @yield('content')
+        @include('partials.modals');
 
         <!-- Scripts -->
         <script src="{!! asset('js/jquery-3.1.0.min.js') !!}"></script>
