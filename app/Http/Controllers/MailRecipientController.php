@@ -23,6 +23,11 @@ class MailRecipientController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'mail_recipient_name' => 'required',
+            'mail_recipient_email' => 'required|email|max:255|unique:mail_recipients'
+        ]);
+
         $recipient = new MailRecipient([
             'user_id' => $request->user()->id,
             'mail_recipient_name' => ucwords($request->get('mail_recipient_name')),
@@ -31,11 +36,18 @@ class MailRecipientController extends Controller
 
         $recipient->save();
 
-        return redirect()->back()->with('status', 'Successfully added recipient: '.$request->get('mail_recipient_name'));
+        $request->session()->flash('status', 'Successfully added recipient: '.$request->get('mail_recipient_name'));
+
+        return redirect()->back();
     }
 
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'mail_recipient_name' => 'required',
+            'mail_recipient_email' => 'required'
+        ]);
+
         $recipientId = $request->get('recipient_id');
 
         $recipient = MailRecipient::query()->findOrFail($recipientId);
@@ -44,19 +56,27 @@ class MailRecipientController extends Controller
             'mail_recipient_email' => trim($request->get('mail_recipient_email'))
         ]);
 
-        return redirect()->back()->with('status', 'Successfully updated recipient: '.$request->get('mail_recipient_name'));
+        $request->session()->flash('status', 'Successfully updated recipient: '.$request->get('mail_recipient_name'));
+
+        return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $recipient = MailRecipient::query()->findOrFail($id);
         $recipient -> delete();
 
-        return redirect()->back()->with('status', 'Successfully removed recipient: '.$recipient->mail_recipient_name);
+        $request->session()->flash('status', 'Successfully removed recipient: '.$request->get('mail_recipient_name'));
+
+        return redirect()->back();
     }
 
     public function import(Request $request)
     {
+        $this->validate($request, [
+            'excel' => 'required'
+        ]);
+
         $user = $request->user();
         $upload = $request->file('excel');
 
@@ -81,6 +101,8 @@ class MailRecipientController extends Controller
         array_splice($data, 0, 1);
 
         DB::table('mail_recipients')->insert($data);
+
+        $request->session()->flash('status', 'Successfully imported recipients from excel');
 
         return redirect()->back();
     }

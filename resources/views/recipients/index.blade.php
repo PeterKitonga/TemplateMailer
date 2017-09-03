@@ -30,13 +30,15 @@
                 <div class="modal-content">
                     <h5></h5>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" name="mail_recipient_name" id="mail-recipient-name" class="validate" placeholder="Recipient Name" value="{{ old('mail_recipient_name') }}">
+                        <div class="input-field col s12 {{ $errors->has('mail_recipient_name') ? 'has-error' : '' }}">
+                            <input type="text" name="mail_recipient_name" id="mail-recipient-name" class="validate" placeholder="Recipient Name" value="{{ old('mail_recipient_name') }}" required>
+                            {!! $errors->has('mail_recipient_name') ? $errors->first('mail_recipient_name', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" name="mail_recipient_email" id="mail-recipient-email" class="validate" placeholder="Recipient Email" value="{{ old('mail_recipient_email') }}">
+                        <div class="input-field col s12 {{ $errors->has('mail_recipient_email') ? 'has-error' : '' }}">
+                            <input type="text" name="mail_recipient_email" id="mail-recipient-email" class="validate" placeholder="Recipient Email" value="{{ old('mail_recipient_email') }}" required>
+                            {!! $errors->has('mail_recipient_email') ? $errors->first('mail_recipient_email', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
                     </div>
                 </div>
@@ -55,13 +57,15 @@
                 <div class="modal-content">
                     <h5></h5>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" name="mail_recipient_name" id="mail-recipient-name" class="validate" placeholder="Recipient Name" value="{{ old('mail_recipient_name') }}">
+                        <div class="input-field col s12 {{ $errors->has('mail_recipient_name') ? 'has-error' : '' }}">
+                            <input type="text" name="mail_recipient_name" id="mail-recipient-name" class="validate" placeholder="Recipient Name" value="{{ old('mail_recipient_name') }}" required>
+                            {!! $errors->has('mail_recipient_name') ? $errors->first('mail_recipient_name', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" name="mail_recipient_email" id="mail-recipient-email" class="validate" placeholder="Recipient Email" value="{{ old('mail_recipient_email') }}">
+                        <div class="input-field col s12 {{ $errors->has('mail_recipient_email') ? 'has-error' : '' }}">
+                            <input type="text" name="mail_recipient_email" id="mail-recipient-email" class="validate" placeholder="Recipient Email" value="{{ old('mail_recipient_email') }}" required>
+                            {!! $errors->has('mail_recipient_email') ? $errors->first('mail_recipient_email', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
                     </div>
                 </div>
