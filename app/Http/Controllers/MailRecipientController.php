@@ -64,7 +64,7 @@ class MailRecipientController extends Controller
     public function destroy(Request $request, $id)
     {
         $recipient = MailRecipient::query()->findOrFail($id);
-        $recipient -> delete();
+        $recipient -> forceDelete();
 
         $request->session()->flash('status', 'Successfully removed recipient: '.$request->get('mail_recipient_name'));
 
