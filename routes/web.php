@@ -51,6 +51,14 @@ Route::group(['prefix' => 'templates'], function () {
     Route::delete('delete/{id}', 'MailTemplateController@destroy')->name('templates.delete');
 });
 
+/*========================= Templates Schedules Routes ======================*/
+Route::group(['prefix' => 'templates/schedules'], function () {
+    Route::get('{templateId}/create', 'MailScheduleController@create')->name('templates.schedules.create');
+    Route::post('{templateId}/store', 'MailScheduleController@store')->name('templates.schedules.store');
+    Route::post('{templateId}/update/{id}', 'MailScheduleController@update')->name('templates.schedules.update');
+    Route::delete('{templateId}/delete/{id}', 'MailScheduleController@destroy')->name('templates.schedules.delete');
+});
+
 /*========================= Datatables Routes ======================*/
 Route::group(['prefix' => 'datatables'], function () {
     Route::get('fetch/recipients', 'DatatablesController@fetchRecipients')->name('datatables.fetch.recipients');
