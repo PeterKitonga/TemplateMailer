@@ -1,3 +1,20 @@
+jQuery.each(["put", "delete"], function(i, method) {
+    jQuery[method] = function(url, data, callback, type) {
+        if (jQuery.isFunction(data)) {
+            type = type || callback;
+            callback = data;
+            data = undefined;
+        }
+
+        return jQuery.ajax({
+            url: url,
+            type: method,
+            dataType: type,
+            data: data,
+            success: callback
+        });
+    };
+});
 $(".button-collapse").sideNav();
 $(".dropdown-button").dropdown({
     belowOrigin: true
@@ -46,9 +63,34 @@ appRender = {
                 {data:'created_at', name:'created_at'},
                 {data:'actions', name:'actions', orderable: false, searchable:false}
             ],
-            drawCallback: function() {
+            drawCallback: function(settings) {
+                // Access Datatables API methods
+                var $api = new $.fn.dataTable.Api(settings);
+
                 $(".dropdown-button").dropdown({
                     belowOrigin: true
+                });
+
+                $('.edit-recipient').on('click', function () {
+                    var row = $api.row($(this).closest('tr')).data();
+                    var $modal = $('#modal-edit-recipient');
+
+                    $modal.find('h5').html('Edit Recipient: '+row.mail_recipient_name);
+                    $modal.find("#edit-recipient-form").attr('action', '/recipients/update');
+                    $modal.find('input[name=recipient_id]').val(row.id);
+                    $modal.find('input[name=mail_recipient_name]').val(row.mail_recipient_name);
+                    $modal.find('input[name=mail_recipient_email]').val(row.mail_recipient_email);
+                    $modal.modal('open');
+                });
+
+                $('.delete-confirm').on('click', function () {
+                    var url = $(this).attr('data-link');
+                    var row = $api.row($(this).closest('tr')).data();
+                    var $modal = $('#modal-delete-confirm');
+
+                    $modal.find('h5').html('Remove Recipient: '+row.mail_recipient_name);
+                    $modal.find("#delete-confirm-form").attr('action', url);
+                    $modal.modal('open');
                 });
             }
         });

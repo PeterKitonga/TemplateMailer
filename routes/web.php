@@ -33,11 +33,11 @@ Route::get('activate/account/{code}', ['as' => 'activate.account', 'uses' => 'Au
 /*========================= Recipients Routes ======================*/
 Route::group(['prefix' => 'recipients'], function () {
     Route::get('/', 'MailRecipientController@index')->name('recipients.index');
-    Route::post('store', 'MailRecipientController@store')->name('recipients.store');
-    Route::post('update/{id}', 'MailRecipientController@update')->name('recipients.update');
-    Route::delete('delete/{id}', 'MailRecipientController@destroy')->name('recipients.delete');
-    Route::post('import', 'MailRecipientController@import')->name('recipients.import');
     Route::get('download/template', 'MailRecipientController@download')->name('recipients.download.template');
+    Route::post('store', 'MailRecipientController@store')->name('recipients.store');
+    Route::post('update', 'MailRecipientController@update')->name('recipients.update');
+    Route::post('import', 'MailRecipientController@import')->name('recipients.import');
+    Route::delete('delete/{id}', 'MailRecipientController@destroy')->name('recipients.delete');
 });
 
 /*========================= Datatables Routes ======================*/

@@ -25,8 +25,8 @@ class MailRecipientController extends Controller
     {
         $recipient = new MailRecipient([
             'user_id' => $request->user()->id,
-            'mail_recipient_name' => $request->get('mail_recipient_name'),
-            'mail_recipient_email' => $request->get('mail_recipient_email')
+            'mail_recipient_name' => ucwords($request->get('mail_recipient_name')),
+            'mail_recipient_email' => trim($request->get('mail_recipient_email'))
         ]);
 
         $recipient->save();
@@ -34,14 +34,25 @@ class MailRecipientController extends Controller
         return redirect()->back()->with('status', 'Successfully added recipient: '.$request->get('mail_recipient_name'));
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        return redirect()->back();
+        $recipientId = $request->get('recipient_id');
+
+        $recipient = MailRecipient::query()->findOrFail($recipientId);
+        $recipient -> update([
+            'mail_recipient_name' => ucwords($request->get('mail_recipient_name')),
+            'mail_recipient_email' => trim($request->get('mail_recipient_email'))
+        ]);
+
+        return redirect()->back()->with('status', 'Successfully updated recipient: '.$request->get('mail_recipient_name'));
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        return redirect()->back();
+        $recipient = MailRecipient::query()->findOrFail($id);
+        $recipient -> delete();
+
+        return redirect()->back()->with('status', 'Successfully removed recipient: '.$recipient->mail_recipient_name);
     }
 
     public function import(Request $request)
@@ -56,8 +67,8 @@ class MailRecipientController extends Controller
         foreach ($reader->getSheetIterator() as $sheet) {
             foreach ($sheet->getRowIterator() as $row) {
                 $pushArray['user_id'] = $user->id;
-                $pushArray['mail_recipient_name'] = $row[0];
-                $pushArray['mail_recipient_email'] = $row[1];
+                $pushArray['mail_recipient_name'] = ucwords($row[0]);
+                $pushArray['mail_recipient_email'] = trim($row[1]);
                 $pushArray['created_at'] = Carbon::now()->toDateTimeString();
                 $pushArray['updated_at'] = Carbon::now()->toDateTimeString();
 
