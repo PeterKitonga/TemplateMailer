@@ -17,8 +17,8 @@ class CreateMailRecipientsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('mail_recipient_name', 40)->unique();
-            $table->string('mail_recipient_email')->nullable();
+            $table->string('mail_recipient_name', 40)->nullable();
+            $table->string('mail_recipient_email')->unique();
             $table->timestamps();
             $table->softDeletes();
         });
