@@ -133,11 +133,22 @@ appRender = {
 
                 $('.delete-confirm').on('click', function () {
                     var url = $(this).attr('data-link');
-                    var row = $api.row($(this).closest('tr')).data();
                     var $modal = $('#modal-delete-confirm');
+                    var row = $api.row($(this).closest('tr')).data();
 
                     $modal.find('h5').html('Remove Recipient: '+row.mail_subject);
                     $modal.find("#delete-confirm-form").attr('action', url);
+                    $modal.modal('open');
+                });
+
+                $('.chip').on('click', function () {
+                    var row = $api.row($(this).closest('tr')).data();
+                    var $modal = $('#modal-show-content');
+
+                    $modal.find('h5').html('View Body for: '+row.mail_subject);
+                    $.get('/templates/get/'+row.id+'/body', function (data) {
+                        $modal.find('p').html(data.content);
+                    });
                     $modal.modal('open');
                 });
             }

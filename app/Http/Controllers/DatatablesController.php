@@ -44,6 +44,9 @@ class DatatablesController extends Controller
         $query = MailTemplate::query()->where('user_id', $user->id);
 
         return Datatables::of($query)
+            ->editColumn('mail_body_content', function ($template) {
+                return '<div class="chip blue-grey white-text" data-placement="top"><i class="ti-info-alt"></i> Click to View</div>';
+            })
             ->editColumn('created_at', function ($template) {
                 return Carbon::parse($template->created_at)->toFormattedDateString();
             })

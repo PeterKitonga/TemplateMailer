@@ -46,4 +46,11 @@ class MailTemplateController extends Controller
     {
         return view('templates.edit');
     }
+
+    public function getContent($templateId)
+    {
+        $template = MailTemplate::query()->findOrFail($templateId);
+
+        return response()->json(['content' => $template->mail_body_content]);
+    }
 }

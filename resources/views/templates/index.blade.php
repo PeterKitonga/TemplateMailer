@@ -25,6 +25,17 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div id="modal-show-content" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5></h5>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Done</a>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
