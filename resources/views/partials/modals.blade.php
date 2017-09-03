@@ -2,6 +2,7 @@
     <div id="modal-delete-confirm" class="modal">
         <form id="delete-confirm-form" action="" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <input type="hidden" name="_method" value="DELETE">
             <div class="modal-content">
                 <h5></h5>
                 <p>Are you sure want to do this?</p>
