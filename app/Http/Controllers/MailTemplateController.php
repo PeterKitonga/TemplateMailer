@@ -62,6 +62,18 @@ class MailTemplateController extends Controller
         $template = MailTemplate::query()->findOrFail($templateId);
         $template->update($request->all());
 
+        $request->session()->flash('status', 'Successfully updated template: '.$request->get('mail_subject'));
+
+        return redirect('templates');
+    }
+
+    public function destroy(Request $request, $templateId)
+    {
+        $template = MailTemplate::query()->findOrFail($templateId);
+        $template -> forceDelete();
+
+        $request->session()->flash('status', 'Successfully removed template: '.$template->mail_subject);
+
         return redirect('templates');
     }
 
