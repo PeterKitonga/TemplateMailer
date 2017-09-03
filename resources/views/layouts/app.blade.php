@@ -34,6 +34,7 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
                         <li><a href="{{ url('/recipients') }}">Recipients</a></li>
+                        <li><a href="{{ url('/templates') }}">Templates</a></li>
                         <li>
                             <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
                                 Logout
@@ -50,6 +51,7 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
                         <li><a href="{{ url('/recipients') }}">Recipients</a></li>
+                        <li><a href="{{ url('/templates') }}">Templates</a></li>
                         <li>
                             <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
                                 Logout
