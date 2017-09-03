@@ -25,7 +25,7 @@
         </script>
     </head>
     <body>
-        <nav>
+        <nav class="red">
             <div class="nav-wrapper">
                 <a href="{{ url('/') }}" class="brand-logo">{{ config('app.name', 'Laravel') }}</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="ti-menu"></i></a>
