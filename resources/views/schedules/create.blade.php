@@ -42,11 +42,17 @@
 
                     <div class="row">
                         <div class="col m1 offset-m1"></div>
-                        <div class="input-field col m6 {{ $errors->has('recipients') ? 'has-error' : '' }}">
+                        <div class="col m8"><p>Enter recipient emails and hit "Enter" or click on icon</p></div>
+                        <div class="col m1 offset-m1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col m1 offset-m1"></div>
+                        <div class="input-field col m8 {{ $errors->has('recipients') ? 'has-error' : '' }}">
                             <div class="chips chips-placeholder"></div>
                             {!! $errors->has('recipients') ? $errors->first('recipients', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
-                        <div class="input-field col m2">
+                        <div class="input-field col m1">
                             <a class="btn btn-floating btn-large pulse tooltipped" data-tooltip="Select Recipients" data-placement="top" id="add-recipients"><i class="ti-plus"></i></a>
                         </div>
                         <div class="col m1 offset-m1"></div>
