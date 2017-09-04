@@ -27,7 +27,7 @@ class DatatablesController extends Controller
                 return Carbon::parse($recipient->created_at)->toFormattedDateString();
             })
             ->addColumn('actions', function ($recipient) {
-                return '<a class="dropdown-button btn red" href="#" data-hover="true" data-beloworigin="true" data-activates="actions'.$recipient->id.'">More</a>
+                return '<a class="dropdown-button btn red" href="#" data-beloworigin="true" data-activates="actions'.$recipient->id.'">More</a>
                         <ul id="actions'.$recipient->id.'" class="dropdown-content">
                             <li><a href="#" data-link="'.route('recipients.update').'" class="edit-recipient">Edit</a></li>
                             <li class="divider"></li>
@@ -51,7 +51,7 @@ class DatatablesController extends Controller
                 return Carbon::parse($template->created_at)->toFormattedDateString();
             })
             ->addColumn('actions', function ($template) {
-                return '<a class="dropdown-button btn red" href="#" data-hover="true" data-beloworigin="true"  data-constrainwidth="true" data-activates="actions'.$template->id.'">More</a>
+                return '<a class="dropdown-button btn red" href="#" data-beloworigin="true"  data-constrainwidth="true" data-activates="actions'.$template->id.'">More</a>
                         <ul id="actions'.$template->id.'" class="dropdown-content">
                             <li><a href="'.route('templates.schedules.create', [$template->id]).'">Schedule</a></li>
                             <li class="divider"></li>
