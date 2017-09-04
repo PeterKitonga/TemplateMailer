@@ -72,7 +72,7 @@ class MailRecipientController extends Controller
         $recipient = MailRecipient::query()->findOrFail($id);
         $recipient -> forceDelete();
 
-        $request->session()->flash('status', 'Successfully removed recipient: '.$request->get('mail_recipient_name'));
+        $request->session()->flash('status', 'Successfully removed recipient: '.$recipient->mail_recipient_name);
 
         return redirect()->back();
     }
@@ -92,13 +92,21 @@ class MailRecipientController extends Controller
 
         foreach ($reader->getSheetIterator() as $sheet) {
             foreach ($sheet->getRowIterator() as $row) {
-                $pushArray['user_id'] = $user->id;
-                $pushArray['mail_recipient_name'] = ucwords($row[0]);
-                $pushArray['mail_recipient_email'] = trim($row[1]);
-                $pushArray['created_at'] = Carbon::now()->toDateTimeString();
-                $pushArray['updated_at'] = Carbon::now()->toDateTimeString();
+                // Check if the email exists
+                $check = MailRecipient::query()->where('mail_recipient_email', trim($row[1]))->count();
 
-                array_push($data, $pushArray);
+                if ($check == 0) {
+                    $pushArray['user_id'] = $user->id;
+                    $pushArray['mail_recipient_name'] = ucwords($row[0]);
+                    $pushArray['mail_recipient_email'] = trim($row[1]);
+                    $pushArray['mail_recipient_is_business_owner'] = trim(intval($row[2]));
+                    $pushArray['mail_recipient_company_name'] = trim($row[3]);
+                    $pushArray['mail_recipient_company_position'] = trim($row[4]);
+                    $pushArray['created_at'] = Carbon::now()->toDateTimeString();
+                    $pushArray['updated_at'] = Carbon::now()->toDateTimeString();
+
+                    array_push($data, $pushArray);
+                }
             }
         }
 
