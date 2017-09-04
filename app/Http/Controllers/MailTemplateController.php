@@ -33,7 +33,15 @@ class MailTemplateController extends Controller
 
         $user = User::query()->findOrFail($request->user()->id);
 
-        $template = new MailTemplate($request->all());
+        $template = new MailTemplate([
+            'mail_tag' => $request->get('mail_tag'),
+            'mail_title' => trim($request->get('mail_title')),
+            'mail_subject' => trim($request->get('mail_subject')),
+            'mail_body_content' => $request->get('mail_body_content'),
+            'mail_has_attachment' => $request->has('mail_has_attachment'),
+            'mail_attachment_name' => trim($request->get('mail_attachment_name')),
+            'mail_attachment_content' => $request->get('mail_attachment_content')
+        ]);
         $template->user()->associate($user);
         $template->save();
 
@@ -60,7 +68,15 @@ class MailTemplateController extends Controller
         $templateId = $request->get('template_id');
 
         $template = MailTemplate::query()->findOrFail($templateId);
-        $template->update($request->all());
+        $template->update([
+            'mail_tag' => $request->get('mail_tag'),
+            'mail_title' => trim($request->get('mail_title')),
+            'mail_subject' => trim($request->get('mail_subject')),
+            'mail_body_content' => $request->get('mail_body_content'),
+            'mail_has_attachment' => $request->has('mail_has_attachment'),
+            'mail_attachment_name' => trim($request->get('mail_attachment_name')),
+            'mail_attachment_content' => $request->get('mail_attachment_content')
+        ]);
 
         $request->session()->flash('status', 'Successfully updated template: '.$request->get('mail_subject'));
 
