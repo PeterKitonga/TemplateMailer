@@ -31,7 +31,10 @@ class MailRecipientController extends Controller
         $recipient = new MailRecipient([
             'user_id' => $request->user()->id,
             'mail_recipient_name' => ucwords($request->get('mail_recipient_name')),
-            'mail_recipient_email' => trim($request->get('mail_recipient_email'))
+            'mail_recipient_email' => trim($request->get('mail_recipient_email')),
+            'mail_recipient_is_business_owner' => $request->has('mail_recipient_is_business_owner'),
+            'mail_recipient_company_name' => trim($request->get('mail_recipient_company_name')),
+            'mail_recipient_company_position' => trim($request->get('mail_recipient_company_position'))
         ]);
 
         $recipient->save();
@@ -53,7 +56,10 @@ class MailRecipientController extends Controller
         $recipient = MailRecipient::query()->findOrFail($recipientId);
         $recipient -> update([
             'mail_recipient_name' => ucwords($request->get('mail_recipient_name')),
-            'mail_recipient_email' => trim($request->get('mail_recipient_email'))
+            'mail_recipient_email' => trim($request->get('mail_recipient_email')),
+            'mail_recipient_is_business_owner' => $request->has('mail_recipient_is_business_owner'),
+            'mail_recipient_company_name' => trim($request->get('mail_recipient_company_name')),
+            'mail_recipient_company_position' => trim($request->get('mail_recipient_company_position'))
         ]);
 
         $request->session()->flash('status', 'Successfully updated recipient: '.$request->get('mail_recipient_name'));

@@ -95,12 +95,24 @@ appRender = {
                 $('.edit-recipient').on('click', function () {
                     var row = $api.row($(this).closest('tr')).data();
                     var $modal = $('#modal-edit-recipient');
+                    console.log(row);
 
                     $modal.find('h5').html('Edit Recipient: '+row.mail_recipient_name);
                     $modal.find("#edit-recipient-form").attr('action', '/recipients/update');
                     $modal.find('input[name=recipient_id]').val(row.id);
                     $modal.find('input[name=mail_recipient_name]').val(row.mail_recipient_name);
                     $modal.find('input[name=mail_recipient_email]').val(row.mail_recipient_email);
+                    if (row.mail_recipient_is_business_owner === 1) {
+                        $modal.find('input[name=mail_recipient_is_business_owner]').attr('checked', true);
+                        $modal.find('#business-details-section').removeClass('hide');
+                        $modal.find('input[name=mail_recipient_company_name]').val(row.mail_recipient_company_name);
+                        $modal.find('input[name=mail_recipient_company_position]').val(row.mail_recipient_company_position);
+                    } else {
+                        $modal.find('input[name=mail_recipient_is_business_owner]').attr('checked', false);
+                        $modal.find('#business-details-section').addClass('hide');
+                        $modal.find('input[name=mail_recipient_company_name]').val(row.mail_recipient_company_name);
+                        $modal.find('input[name=mail_recipient_company_position]').val(row.mail_recipient_company_position);
+                    }
                     $modal.modal('open');
                 });
 
@@ -113,6 +125,14 @@ appRender = {
                     $modal.find("#delete-confirm-form").attr('action', url);
                     $modal.modal('open');
                 });
+            }
+        });
+
+        $('input[name=mail_recipient_is_business_owner]').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('.business-details-section').removeClass('hide');
+            } else {
+                $('.business-details-section').addClass('hide');
             }
         });
     },

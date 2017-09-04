@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="row">
-        <div id="modal-add-recipient" class="modal">
+        <div id="modal-add-recipient" class="modal modal-fixed-footer">
             <form id="add-recipient-form" action="" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-content">
@@ -41,6 +41,25 @@
                             {!! $errors->has('mail_recipient_email') ? $errors->first('mail_recipient_email', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
                     </div>
+                    <div class="row">
+                        <p class="col s12 {{ $errors->has('mail_recipient_is_business_owner') ? 'has-error' : '' }}">
+                            <input type="checkbox" name="mail_recipient_is_business_owner" id="mail-recipient-is-business-owner" />
+                            <label for="mail-recipient-is-business-owner">Is Business Owner/Company Employee?</label>
+                            {!! $errors->has('mail_recipient_is_business_owner') ? $errors->first('mail_recipient_is_business_owner', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                        </p>
+                    </div>
+                    <div id="business-details-section" class="business-details-section hide">
+                        <div class="row">
+                            <div class="input-field col s6 {{ $errors->has('mail_recipient_company_name') ? 'has-error' : '' }}">
+                                <input type="text" name="mail_recipient_company_name" id="mail-recipient-company-name" class="validate" placeholder="Recipient's Business/Company Name">
+                                {!! $errors->has('mail_recipient_company_name') ? $errors->first('mail_recipient_company_name', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                            </div>
+                            <div class="input-field col s6 {{ $errors->has('mail_recipient_company_position') ? 'has-error' : '' }}">
+                                <input type="text" name="mail_recipient_company_position" id="mail-recipient-company-position" class="validate" placeholder="Recipient's Business/Company Position">
+                                {!! $errors->has('mail_recipient_company_position') ? $errors->first('mail_recipient_company_position', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
@@ -50,7 +69,7 @@
         </div>
     </div>
     <div class="row">
-        <div id="modal-edit-recipient" class="modal">
+        <div id="modal-edit-recipient" class="modal modal-fixed-footer">
             <form id="edit-recipient-form" action="" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="recipient_id">
@@ -66,6 +85,25 @@
                         <div class="input-field col s12 {{ $errors->has('mail_recipient_email') ? 'has-error' : '' }}">
                             <input type="text" name="mail_recipient_email" id="mail-recipient-email" class="validate" placeholder="Recipient Email" value="{{ old('mail_recipient_email') }}" required>
                             {!! $errors->has('mail_recipient_email') ? $errors->first('mail_recipient_email', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="col s12 {{ $errors->has('mail_recipient_is_business_owner') ? 'has-error' : '' }}">
+                            <input type="checkbox" name="mail_recipient_is_business_owner" id="mail-recipient-is-business-owner-edit" />
+                            <label for="mail-recipient-is-business-owner-edit">Is Business Owner/Company Employee?</label>
+                            {!! $errors->has('mail_recipient_is_business_owner') ? $errors->first('mail_recipient_is_business_owner', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                        </p>
+                    </div>
+                    <div id="business-details-section" class="business-details-section hide">
+                        <div class="row">
+                            <div class="input-field col s6 {{ $errors->has('mail_recipient_company_name') ? 'has-error' : '' }}">
+                                <input type="text" name="mail_recipient_company_name" id="mail-recipient-company-name" class="validate" placeholder="Recipient's Business/Company Name" value="{{ old('mail_recipient_company_name') }}">
+                                {!! $errors->has('mail_recipient_company_name') ? $errors->first('mail_recipient_company_name', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                            </div>
+                            <div class="input-field col s6 {{ $errors->has('mail_recipient_company_position') ? 'has-error' : '' }}">
+                                <input type="text" name="mail_recipient_company_position" id="mail-recipient-company-position" class="validate" placeholder="Recipient's Business/Company Position" value="{{ old('mail_recipient_company_position') }}">
+                                {!! $errors->has('mail_recipient_company_position') ? $errors->first('mail_recipient_company_position', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                            </div>
                         </div>
                     </div>
                 </div>
