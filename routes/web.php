@@ -21,6 +21,25 @@ Route::get('/', function () {
     }
 });
 
+/*========================= Test Routes ======================*/
+Route::get('test/recipients', function () {
+    $schedule = \App\MailSchedule::query()
+        ->with('mailTemplate', 'mailRecipients')
+        ->first();
+
+    return $schedule->toArray();
+});
+
+Route::get('test/pdf/{id}', function ($id) {
+    $template = \App\MailTemplate::query()
+        ->findOrFail($id);
+
+    $pdf = \Illuminate\Support\Facades\App::make('dompdf.wrapper');
+    $pdf->loadHTML($template->mail_body_content)->setPaper('a4', 'landscape')->setWarnings(false);
+
+    return $pdf->stream('sample.pdf');
+});
+
 /*========================= Authentication Routes ======================*/
 Auth::routes();
 
