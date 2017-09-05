@@ -42,7 +42,7 @@
 
                     <div class="row">
                         <div class="col m1 offset-m1"></div>
-                        <div class="col m8"><p>Enter recipient emails and hit "Enter" or click on icon</p></div>
+                        <div class="col m8"><p>Enter recipient email and hit "Enter" or click on icon</p></div>
                         <div class="col m1 offset-m1"></div>
                     </div>
 
@@ -98,8 +98,8 @@
     <script>
         $(function () {
             $('.chips-placeholder').material_chip({
-                placeholder: 'Recipients emails',
-                secondaryPlaceholder: '+Emails'
+                placeholder: 'Recipients email',
+                secondaryPlaceholder: '+Email'
             });
 
             $('.chips').on('chip.delete', function () {
