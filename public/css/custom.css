@@ -17,3 +17,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 p.options {
     display: inline;
 }
+
+.chip.preview {
+    cursor: pointer;
+}
