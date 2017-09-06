@@ -72,7 +72,7 @@
                         <div class="col m1 offset-m1"></div>
                     </div>
 
-                    <div id="attachment-section" class="hide">
+                    <div id="attachment-name-section" class="hide">
                         <div class="row">
                             <div class="col m1 offset-m1"></div>
                             <div class="input-field col m8 {{ $errors->has('mail_attachment_name') ? 'has-error' : '' }}">
@@ -81,7 +81,52 @@
                             </div>
                             <div class="col m1 offset-m1"></div>
                         </div>
+                        <div class="row">
+                            <div class="col m1 offset-m1"></div>
+                            <div class="input-field col m8 {{ $errors->has('mail_attachment_file_variables') ? 'has-error' : '' }}">
+                                <div class="chips chips-placeholder"></div>
+                                <input type="hidden" name="mail_attachment_file_variables" id="mail-attachment-file-variables">
+                                {!! $errors->has('mail_attachment_file_variables') ? $errors->first('mail_attachment_file_variables', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                            </div>
+                            <div class="col m1 offset-m1"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col m1 offset-m1"></div>
+                            <div class="col m8 {{ $errors->has('mail_has_attachment_file') ? 'has-error' : '' }}">
+                                <p class="options">
+                                    Attachment Is a file?
+                                </p>
+                                <p class="options">
+                                    <input class="with-gap" name="mail_has_attachment_file" type="radio" id="mail-has-attachment-file2" value="1" />
+                                    <label for="mail-has-attachment-file2">Yes</label>
+                                </p>
+                                <p class="options">
+                                    <input class="with-gap" name="mail_has_attachment_file" type="radio" id="mail-has-attachment-file1" value="0" />
+                                    <label for="mail-has-attachment-file1">No</label>
+                                </p>
+                                {!! $errors->has('mail_has_attachment_file') ? $errors->first('mail_has_attachment_file', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                            </div>
+                            <div class="col m1 offset-m1"></div>
+                        </div>
+                    </div>
 
+                    <div id="attachment-file-section" class="hide">
+                        <div class="row">
+                            <div class="col m1 offset-m1"></div>
+                            <div class="file-field input-field col m8">
+                                <div class="btn">
+                                    <span>Browse</span>
+                                    <input type="file" name="mail_attachment_file_url" required>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                            <div class="col m1 offset-m1"></div>
+                        </div>
+                    </div>
+
+                    <div id="attachment-content-section" class="hide">
                         <div class="row">
                             <div class="col m1 offset-m1"></div>
                             <div class="input-field col m8 {{ $errors->has('mail_attachment_content') ? 'has-error' : '' }}">
@@ -122,10 +167,37 @@
 
             $('#mail-has-attachment').on('change', function() {
                 if ($(this).is(':checked')) {
-                    $('#attachment-section').removeClass('hide');
+                    $('#attachment-name-section').removeClass('hide');
                 } else {
-                    $('#attachment-section').addClass('hide');
+                    $('#attachment-name-section').addClass('hide');
                 }
+            });
+
+            $('input[name=mail_has_attachment_file]').on('change', function() {
+                if ($(this).val() === '1') {
+                    $('#attachment-content-section').addClass('hide');
+                    $('#attachment-file-section').removeClass('hide');
+                } else {
+                    $('#attachment-file-section').addClass('hide');
+                    $('#attachment-content-section').removeClass('hide');
+                }
+            });
+
+            $('.chips-placeholder').material_chip({
+                placeholder: 'Attachment Variables',
+                secondaryPlaceholder: '+Variable'
+            });
+
+            $('.chips').on('chip.add', function(){
+                var data = $(this).material_chip('data');
+
+                $('input[name=mail_attachment_file_variables]').val(JSON.stringify(data));
+            });
+
+            $('.chips').on('chip.delete', function () {
+                var data = $(this).material_chip('data');
+
+                $('input[name=mail_attachment_file_variables]').val(JSON.stringify(data));
             });
         });
     </script>
