@@ -9,7 +9,18 @@ class MailTemplate extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'mail_tag', 'mail_title', 'mail_subject', 'mail_body_content', 'mail_has_attachment', 'mail_attachment_name', 'mail_attachment_content'];
+    protected $fillable = [
+        'user_id',
+        'mail_tag',
+        'mail_title',
+        'mail_subject',
+        'mail_body_content',
+        'mail_has_attachment',
+        'mail_has_attachment_file',
+        'mail_attachment_file_url',
+        'mail_attachment_name',
+        'mail_attachment_content'
+    ];
 
     protected $dates = ['deleted_at'];
 
