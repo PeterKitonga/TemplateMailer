@@ -187,7 +187,7 @@ appRender = {
 
                     $modal.find('h5').html('View Body for: '+row.mail_subject);
                     $.get('/templates/get/'+row.id+'/body', function (data) {
-                        $modal.find('p').html(data.content);
+                        $modal.find('#mail-content').html(data.content);
                     });
                     $modal.modal('open');
                 });
