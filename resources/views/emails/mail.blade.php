@@ -123,7 +123,7 @@
                                                             <div class="contentEditableContainer contentTextEditable">
                                                                 <div class="contentEditable" align='center'>
                                                                     <p  style='text-align:left;color:#222222;font-size:14px;line-height:19px;'>
-                                                                        {{ $body }}
+                                                                        {!! $body !!}
                                                                     </p>
                                                                 </div>
                                                             </div>
