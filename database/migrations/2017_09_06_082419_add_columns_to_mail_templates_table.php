@@ -15,7 +15,8 @@ class AddColumnsToMailTemplatesTable extends Migration
     {
         Schema::table('mail_templates', function (Blueprint $table) {
             $table->boolean('mail_has_attachment_file')->default(0)->after('mail_has_attachment');
-            $table->string('mail_attachment_file_url')->nullable()->after('mail_has_attachment_file');
+            $table->jsonb('mail_attachment_file_variables')->nullable()->after('mail_has_attachment_file'); // jsonb deletes duplicates
+            $table->string('mail_attachment_file_url')->nullable()->after('mail_attachment_file_variables');
         });
     }
 
@@ -27,7 +28,7 @@ class AddColumnsToMailTemplatesTable extends Migration
     public function down()
     {
         Schema::table('mail_templates', function (Blueprint $table) {
-            $table->dropColumn(['mail_has_attachment_file', 'mail_attachment_file_url']);
+            $table->dropColumn(['mail_has_attachment_file', 'mail_attachment_file_variables', 'mail_attachment_file_url']);
         });
     }
 }
