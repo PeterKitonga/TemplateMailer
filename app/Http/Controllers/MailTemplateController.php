@@ -31,6 +31,16 @@ class MailTemplateController extends Controller
             'mail_title' => 'required'
         ]);
 
+        $attachment = $request->file('mail_attachment_file_url');
+        if ($attachment !== null)
+        {
+            $attachmentName = mt_rand(100000, 999999).'.'.$attachment->getClientOriginalExtension();
+            $attachment->move(storage_path('templates'), $attachmentName);
+            $attachmentPath = storage_path('templates/').$attachmentName;
+        } else {
+            $attachmentPath = null;
+        }
+
         $user = User::query()->findOrFail($request->user()->id);
 
         $template = new MailTemplate([
@@ -39,7 +49,10 @@ class MailTemplateController extends Controller
             'mail_subject' => trim($request->get('mail_subject')),
             'mail_body_content' => $request->get('mail_body_content'),
             'mail_has_attachment' => $request->has('mail_has_attachment'),
+            'mail_has_attachment_file' => $request->has('mail_has_attachment_file'),
             'mail_attachment_name' => trim($request->get('mail_attachment_name')),
+            'mail_attachment_file_variables' => $request->get('mail_attachment_file_variables'),
+            'mail_attachment_file_url' => $attachmentPath,
             'mail_attachment_content' => $request->get('mail_attachment_content')
         ]);
         $template->user()->associate($user);
