@@ -6,5 +6,6 @@
 Homestead.json
 Homestead.yaml
 .env
-storage/.DS_Store
+.DS_Store
 storage/templates/*.docx
+storage/templates/*.pdf
