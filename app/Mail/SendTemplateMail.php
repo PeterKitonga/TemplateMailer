@@ -45,8 +45,8 @@ class SendTemplateMail extends Mailable
                 ->view('emails.mail')
                 ->with([
                     'subject' => $this->mailData['mail_subject'],
-                    'title' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->mailData['mail_title']),
-                    'body' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->mailData['mail_body_content'])
+                    'title' => str_replace('{{name}}', $this->recipient['mail_recipient_name'], $this->mailData['mail_title']),
+                    'body' => str_replace('{{company}}', $this->recipient['mail_recipient_company_name'], $this->mailData['mail_body_content'])
                 ])
                 ->attach($this->filePath, ['as' => $this->mailData['mail_attachment_name'].'.pdf', 'mime' => 'application/pdf']);
         } else {
@@ -56,7 +56,7 @@ class SendTemplateMail extends Mailable
                 ->with([
                     'subject' => $this->mailData['mail_subject'],
                     'title' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->mailData['mail_title']),
-                    'body' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->mailData['mail_body_content'])
+                    'body' => str_replace('{{company}}',$this->recipient['mail_recipient_company_name'], $this->mailData['mail_body_content'])
                 ]);
         }
 
