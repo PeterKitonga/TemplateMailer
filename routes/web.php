@@ -27,7 +27,17 @@ Route::get('test/recipients', function () {
         ->with('mailTemplate', 'mailRecipients')
         ->first();
 
-    return $schedule->toArray();
+    $variables = array_pluck(json_decode($schedule->toArray()['mail_template']['mail_attachment_file_variables']), 'tag');
+
+    return $schedule;
+});
+
+Route::get('test/role/{id}', function ($id) {
+    $role = \App\Role::query()
+        ->where('id', '=', $id)
+        ->first();
+
+    return $role->role_permissions;
 });
 
 Route::get('test/pdf/{id}', function ($id) {
@@ -38,6 +48,19 @@ Route::get('test/pdf/{id}', function ($id) {
     $pdf->loadHTML($template->mail_body_content)->setPaper('a4', 'landscape')->setWarnings(false);
 
     return $pdf->stream('sample.pdf');
+});
+
+Route::get('test/word', function () {
+    $wordFile = storage_path('templates/test'.mt_rand(1000, 9999));
+    $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('templates/sample.docx'));
+    $templateProcessor->setValue(array('{{company}}', '{{position}}', '{{name}}', '{{last}}', '{{date}}'), array('Transnational Bank Kenya Limited', 'Chief Executive Officer', 'Sammy Lang’at', 'Lang’at', '25th August 2017'));
+    $templateProcessor->saveAs($wordFile.'.docx');
+
+    shell_exec(env('LIBREOFFICE_DIR').' --headless --convert-to pdf '.$wordFile.'.docx --outdir '.storage_path('templates'));
+
+    \Illuminate\Support\Facades\File::delete($wordFile.'.docx');
+
+    return response()->download($wordFile.'.pdf')->deleteFileAfterSend(true);
 });
 
 /*========================= Authentication Routes ======================*/
