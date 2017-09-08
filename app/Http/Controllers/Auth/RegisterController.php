@@ -42,18 +42,18 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Show the application registration form.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function showRegistrationForm(Request $request)
-    {
-        $request->session()->flash('error', 'Registration has been disabled. Please contact the administrators for assistance');
-
-        return redirect('login');
-    }
+//    /**
+//     * Show the application registration form.
+//     *
+//     * @param Request $request
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function showRegistrationForm(Request $request)
+//    {
+//        $request->session()->flash('error', 'Registration has been disabled. Please contact the administrators for assistance');
+//
+//        return redirect('login');
+//    }
 
     /**
      * Get a validator for an incoming registration request.
