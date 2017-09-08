@@ -46,7 +46,7 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'Consumer analysis'
+                    text: 'Mail Transactions'
                 },
                 subtitle: {
                     text: ''
