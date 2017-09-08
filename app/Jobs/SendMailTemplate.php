@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\SendTemplateMail;
+use App\MailLog;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -19,17 +20,20 @@ class SendMailTemplate implements ShouldQueue
 
     protected $template;
     protected $recipient;
+    protected $scheduleId;
 
     /**
      * Create a new job instance.
      *
      * @param $template
      * @param $recipient
+     * @param $scheduleId
      */
-    public function __construct($template, $recipient)
+    public function __construct($template, $recipient, $scheduleId)
     {
         $this->template = $template;
         $this->recipient = $recipient;
+        $this->scheduleId = $scheduleId;
     }
 
     /**
@@ -59,10 +63,29 @@ class SendMailTemplate implements ShouldQueue
                 ->save($pdfFile);
         }
 
-        $email = new SendTemplateMail($this->recipient, $this->template, $pdfFile);
+        try {
+            $email = new SendTemplateMail($this->recipient, $this->template, $pdfFile, $this->scheduleId);
 
-        Mail::to($this->recipient['mail_recipient_email'])->send($email);
+            Mail::to($this->recipient['mail_recipient_email'])->send($email);
 
-        File::delete([$pdfFile, $wordFile]);
+            MailLog::create([
+                'mail_recipient_email' => $this->recipient['mail_recipient_email'],
+                'status' => 'Sent',
+                'user_id' => $this->template['user_id'],
+                'mail_template_id' => $this->template['id'],
+                'mail_schedule_id' => $this->scheduleId
+            ]);
+
+        } catch (\Exception $exception) {
+            MailLog::create([
+                'mail_recipient_email' => $this->recipient['mail_recipient_email'],
+                'status' => 'Failed',
+                'user_id' => $this->template['user_id'],
+                'mail_template_id' => $this->template['id'],
+                'mail_schedule_id' => $this->scheduleId
+            ]);
+        }
+
+        File::delete($pdfFile, $wordFile);
     }
 }
