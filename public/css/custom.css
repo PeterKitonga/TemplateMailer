@@ -21,3 +21,10 @@ p.options {
 .chip.preview {
     cursor: pointer;
 }
+
+.custom-vertical-divider {
+    border-left: 1px solid #38546d;
+    border-right: 1px solid #16222c;
+    height: 80px;
+    margin: 0 24px;
+}
