@@ -50,7 +50,7 @@ class RegisterController extends Controller
 //     */
 //    public function showRegistrationForm(Request $request)
 //    {
-//        $request->session()->flash('error', 'Registration has been disabled. Please contact the administrators for assistance');
+//        $request->session()->flash('status', 'Registration has been disabled. Please contact the administrators for assistance');
 //
 //        return redirect('login');
 //    }
@@ -126,7 +126,7 @@ class RegisterController extends Controller
 
             DB::commit();
 
-            $request->session()->flash('info', 'A verification email has been sent to you. Please verify your account before proceeding');
+            $request->session()->flash('status', 'A verification email has been sent to you. Please verify your account before proceeding');
 
             return back();
         }
@@ -134,7 +134,7 @@ class RegisterController extends Controller
         {
             DB::rollback();
 
-            $request->session()->flash('error', 'Something went wrong. Please try again');
+            $request->session()->flash('status', 'Something went wrong. Please try again');
 
             return back();
         }
@@ -148,7 +148,7 @@ class RegisterController extends Controller
          **/
         User::query()->where('activation_code', $code)->firstOrFail()->activated();
 
-        $request->session()->flash('success', 'Successfully verified your account. You may proceed to login');
+        $request->session()->flash('status', 'Successfully verified your account. You may proceed to login');
 
         return redirect('login');
     }
