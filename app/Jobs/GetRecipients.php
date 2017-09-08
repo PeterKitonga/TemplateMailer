@@ -33,10 +33,11 @@ class GetRecipients implements ShouldQueue
     {
         $template = $this->schedule['mail_template'];
         $recipients = $this->schedule['mail_recipients'];
+        $scheduleId = $this->schedule['id'];
 
         foreach ($recipients as $recipient)
         {
-            $this->dispatch(new SendMailTemplate($template, $recipient));
+            $this->dispatch(new SendMailTemplate($template, $recipient, $scheduleId));
         }
     }
 }
