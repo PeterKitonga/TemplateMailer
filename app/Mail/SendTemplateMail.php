@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\MailLog;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -14,21 +15,24 @@ class SendTemplateMail extends Mailable
     use Queueable, SerializesModels;
 
     protected $recipient;
-    protected $mailData;
+    protected $template;
     protected $filePath;
+    protected $scheduleId;
 
     /**
      * Create a new message instance.
      *
      * @param $recipient
-     * @param $mailData
+     * @param $template
      * @param $filePath
+     * @param $scheduleId
      */
-    public function __construct($recipient, $mailData, $filePath)
+    public function __construct($recipient, $template, $filePath, $scheduleId)
     {
         $this->recipient = $recipient;
-        $this->mailData = $mailData;
+        $this->template = $template;
         $this->filePath = $filePath;
+        $this->scheduleId = $scheduleId;
     }
 
     /**
@@ -38,25 +42,25 @@ class SendTemplateMail extends Mailable
      */
     public function build()
     {
-        if ($this->mailData['mail_has_attachment'] == 1)
+        if ($this->template['mail_has_attachment'] == 1)
         {
             $mail = $this->from(env('MAIL_FROM_ADDRESS'))
-                ->subject($this->mailData['mail_subject'])
+                ->subject($this->template['mail_subject'])
                 ->view('emails.mail')
                 ->with([
-                    'subject' => $this->mailData['mail_subject'],
-                    'title' => str_replace('{{name}}', $this->recipient['mail_recipient_name'], $this->mailData['mail_title']),
-                    'body' => str_replace('{{company}}', $this->recipient['mail_recipient_company_name'], $this->mailData['mail_body_content'])
+                    'subject' => $this->template['mail_subject'],
+                    'title' => str_replace('{{name}}', $this->recipient['mail_recipient_name'], $this->template['mail_title']),
+                    'body' => str_replace('{{company}}', $this->recipient['mail_recipient_company_name'], $this->template['mail_body_content'])
                 ])
-                ->attach($this->filePath, ['as' => $this->mailData['mail_attachment_name'].'.pdf', 'mime' => 'application/pdf']);
+                ->attach($this->filePath, ['as' => $this->template['mail_attachment_name'].'.pdf', 'mime' => 'application/pdf']);
         } else {
             $mail = $this->from(env('MAIL_FROM_ADDRESS'))
-                ->subject($this->mailData['mail_subject'])
+                ->subject($this->template['mail_subject'])
                 ->view('emails.mail')
                 ->with([
-                    'subject' => $this->mailData['mail_subject'],
-                    'title' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->mailData['mail_title']),
-                    'body' => str_replace('{{company}}',$this->recipient['mail_recipient_company_name'], $this->mailData['mail_body_content'])
+                    'subject' => $this->template['mail_subject'],
+                    'title' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->template['mail_title']),
+                    'body' => str_replace('{{company}}',$this->recipient['mail_recipient_company_name'], $this->template['mail_body_content'])
                 ]);
         }
 
