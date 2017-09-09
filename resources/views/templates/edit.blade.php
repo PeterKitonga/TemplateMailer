@@ -2,7 +2,6 @@
 
 @push('styles')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('materialnote/css/materialnote.css') }}">
 @endpush
 
 @section('content')
@@ -58,7 +57,7 @@
                             <div class="col m1 offset-m1"></div>
                             <div class="input-field col m8 {{ $errors->has('mail_body_content') ? 'has-error' : '' }}">
                                 <p>Mail Body:</p>
-                                <textarea name="mail_body_content" id="mail-body-content" class="materialize-textarea">{{ $template->mail_body_content }}</textarea>
+                                <textarea name="mail_body_content" id="mail-body-content" class="materialize-textarea editor">{{ $template->mail_body_content }}</textarea>
                                 {!! $errors->has('mail_body_content') ? $errors->first('mail_body_content', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                             </div>
                             <div class="col m1 offset-m1"></div>
@@ -88,7 +87,7 @@
                                 <div class="col m1 offset-m1"></div>
                                 <div class="input-field col m8 {{ $errors->has('mail_attachment_content') ? 'has-error' : '' }}">
                                     <p>Mail Attachment Content:</p>
-                                    <textarea name="mail_attachment_content" id="mail-attachment-content" class="materialize-textarea">{{ $template->mail_attachment_content }}</textarea>
+                                    <textarea name="mail_attachment_content" id="mail-attachment-content" class="materialize-textarea editor">{{ $template->mail_attachment_content }}</textarea>
                                     {!! $errors->has('mail_attachment_content') ? $errors->first('mail_attachment_content', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                                 </div>
                                 <div class="col m1 offset-m1"></div>
@@ -110,17 +109,31 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('materialnote/js/materialnote.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('ckeditor/adapters/jquery.js') }}"></script>
     <script>
         $(function () {
-            $('#mail-body-content').materialnote({
-                height: 200,
-                placeholder: 'Mail body content goes here...'
-            });
-
-            $('#mail-attachment-content').materialnote({
-                height: 200,
-                placeholder: 'Mail attachment content goes here...'
+            $('textarea.editor').ckeditor({
+                language: 'en',
+                uiColor: '#FFFFFF',
+                toolbarCanCollapse: true,
+                toolbarGroups: [
+                    '/',
+                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                    { name: 'links', groups: [ 'links' ] },
+                    { name: 'insert', groups: [ 'insert' ] },
+                    { name: 'forms', groups: [ 'forms' ] },
+                    { name: 'tools', groups: [ 'tools' ] },
+                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                    { name: 'others', groups: [ 'others' ] },
+                    { name: 'styles', groups: [ 'styles' ] },
+                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                    { name: 'colors', groups: [ 'colors' ] },
+                    { name: 'about', groups: [ 'about' ] }
+                ],
+                removeButtons: 'Underline,Subscript,Superscript,About,Source'
             });
 
             $('#mail-has-attachment').on('change', function() {
