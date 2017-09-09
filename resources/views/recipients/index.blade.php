@@ -42,6 +42,28 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col s12 {{ $errors->has('mail_recipient_gender') ? 'has-error' : '' }}">
+                            <p class="options">
+                                Gender?
+                            </p>
+                            <p class="options">
+                                <input class="with-gap" name="mail_recipient_gender" type="radio" id="mail-recipient-gender1" value="1" />
+                                <label for="mail-recipient-gender1">Female</label>
+                            </p>
+                            <p class="options">
+                                <input class="with-gap" name="mail_recipient_gender" type="radio" id="mail-recipient-gender2" value="2" />
+                                <label for="mail-recipient-gender2">Male</label>
+                            </p>
+                            {!! $errors->has('mail_recipient_gender') ? $errors->first('mail_recipient_gender', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 {{ $errors->has('mail_recipient_title') ? 'has-error' : '' }}">
+                            <input type="text" name="mail_recipient_title" id="mail-recipient-title" class="validate" placeholder="Recipient Title e.g Mr. Smith" value="{{ old('mail_recipient_title') }}" required>
+                            {!! $errors->has('mail_recipient_title') ? $errors->first('mail_recipient_title', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                        </div>
+                    </div>
+                    <div class="row">
                         <p class="col s12 {{ $errors->has('mail_recipient_is_business_owner') ? 'has-error' : '' }}">
                             <input type="checkbox" name="mail_recipient_is_business_owner" id="mail-recipient-is-business-owner" />
                             <label for="mail-recipient-is-business-owner">Is Business Owner/Company Employee?</label>
@@ -85,6 +107,28 @@
                         <div class="input-field col s12 {{ $errors->has('mail_recipient_email') ? 'has-error' : '' }}">
                             <input type="text" name="mail_recipient_email" id="mail-recipient-email" class="validate" placeholder="Recipient Email" value="{{ old('mail_recipient_email') }}" required>
                             {!! $errors->has('mail_recipient_email') ? $errors->first('mail_recipient_email', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 {{ $errors->has('mail_recipient_gender') ? 'has-error' : '' }}">
+                            <p class="options">
+                                Gender?
+                            </p>
+                            <p class="options">
+                                <input class="with-gap" name="mail_recipient_gender" type="radio" id="mail-recipient-gender3" value="1" />
+                                <label for="mail-recipient-gender3">Female</label>
+                            </p>
+                            <p class="options">
+                                <input class="with-gap" name="mail_recipient_gender" type="radio" id="mail-recipient-gender4" value="2" />
+                                <label for="mail-recipient-gender4">Male</label>
+                            </p>
+                            {!! $errors->has('mail_recipient_gender') ? $errors->first('mail_recipient_gender', '<span class="red-text text-darken-2">:message</span>') : '' !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 {{ $errors->has('mail_recipient_title') ? 'has-error' : '' }}">
+                            <input type="text" name="mail_recipient_title" id="mail-recipient-title" class="validate" placeholder="Recipient Title e.g Mr. Smith" value="{{ old('mail_recipient_title') }}" required>
+                            {!! $errors->has('mail_recipient_title') ? $errors->first('mail_recipient_title', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
                     </div>
                     <div class="row">
