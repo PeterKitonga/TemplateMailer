@@ -31,6 +31,9 @@ class MailTemplateController extends Controller
             'mail_title' => 'required'
         ]);
 
+        $mailVariables = $request->get('mail_attachment_file_variables') == null ? null : array_pluck(json_decode($request->get('mail_attachment_file_variables')), 'tag');
+        $mailValues = $request->get('mail_attachment_file_variable_values') == null ? null : array_pluck(json_decode($request->get('mail_attachment_file_variable_values')), 'tag');
+
         $attachment = $request->file('mail_attachment_file_url');
         if ($attachment !== null)
         {
@@ -51,7 +54,8 @@ class MailTemplateController extends Controller
             'mail_has_attachment' => $request->has('mail_has_attachment'),
             'mail_has_attachment_file' => $request->has('mail_has_attachment_file'),
             'mail_attachment_name' => trim($request->get('mail_attachment_name')),
-            'mail_attachment_file_variables' => $request->get('mail_attachment_file_variables'),
+            'mail_attachment_file_variables' => $mailVariables,
+            'mail_attachment_file_variable_values' => $mailValues,
             'mail_attachment_file_url' => $attachmentPath,
             'mail_attachment_content' => $request->get('mail_attachment_content')
         ]);
