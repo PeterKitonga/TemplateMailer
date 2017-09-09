@@ -96,7 +96,6 @@ appRender = {
                 $('.edit-recipient').on('click', function () {
                     var row = $api.row($(this).closest('tr')).data();
                     var $modal = $('#modal-edit-recipient');
-                    console.log(row);
 
                     $modal.find('h5').html('Edit Recipient: ' + row.mail_recipient_name);
                     $modal.find("#edit-recipient-form").attr('action', '/recipients/update');
