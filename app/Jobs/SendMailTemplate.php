@@ -46,12 +46,13 @@ class SendMailTemplate implements ShouldQueue
         $number = mt_rand(1000000, 9999999);
         $pdfFile = storage_path('templates/').$number.'.pdf';
         $wordFile = storage_path('templates/').$number.'.docx';
-        $variables = array_pluck(json_decode($this->template['mail_attachment_file_variables']), 'tag');
+        $variables = $this->template['mail_attachment_file_variables'];
+        $values = $this->template['mail_attachment_file_variable_values'];
 
         if ($this->template['mail_has_attachment_file'] == 1)
         {
             $templateProcessor = new TemplateProcessor($this->template['mail_attachment_file_url']);
-            $templateProcessor->setValue($variables, array($this->recipient['mail_recipient_name'], explode(' ', $this->recipient['mail_recipient_name'])[1], $this->recipient['mail_recipient_company_name'], $this->recipient['mail_recipient_company_position'], Carbon::today()->format('jS F Y')));
+            $templateProcessor->setValue($variables, array_intersect_key($this->recipient, array_flip($values)));
             $templateProcessor->saveAs($wordFile);
 
             shell_exec(env('LIBREOFFICE_DIR').' --headless --convert-to pdf '.$wordFile.' --outdir '.storage_path('templates'));
