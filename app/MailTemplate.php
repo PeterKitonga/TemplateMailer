@@ -18,6 +18,7 @@ class MailTemplate extends Model
         'mail_has_attachment',
         'mail_has_attachment_file',
         'mail_attachment_file_variables',
+        'mail_attachment_file_variable_values',
         'mail_attachment_file_url',
         'mail_attachment_name',
         'mail_attachment_content'
