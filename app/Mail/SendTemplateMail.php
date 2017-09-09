@@ -44,9 +44,7 @@ class SendTemplateMail extends Mailable
     {
         if ($this->template['mail_has_attachment'] == 1)
         {
-            $mail = $this->from(env('MAIL_FROM_ADDRESS'))
-                ->subject($this->template['mail_subject'])
-                ->view('emails.mail')
+            $mail = $this->subject($this->template['mail_subject'])->view('emails.mail')
                 ->with([
                     'subject' => $this->template['mail_subject'],
                     'title' => str_replace('{{name}}', $this->recipient['mail_recipient_name'], $this->template['mail_title']),
@@ -54,9 +52,7 @@ class SendTemplateMail extends Mailable
                 ])
                 ->attach($this->filePath, ['as' => $this->template['mail_attachment_name'].'.pdf', 'mime' => 'application/pdf']);
         } else {
-            $mail = $this->from(env('MAIL_FROM_ADDRESS'))
-                ->subject($this->template['mail_subject'])
-                ->view('emails.mail')
+            $mail = $this->subject($this->template['mail_subject'])->view('emails.mail')
                 ->with([
                     'subject' => $this->template['mail_subject'],
                     'title' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->template['mail_title']),
