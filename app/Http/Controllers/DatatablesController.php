@@ -26,6 +26,9 @@ class DatatablesController extends Controller
             ->editColumn('created_at', function ($recipient) {
                 return Carbon::parse($recipient->created_at)->toFormattedDateString();
             })
+            ->addColumn('gender_name', function ($recipient) {
+                return ($recipient->mail_recipient_gender == 1 ? 'Female' : 'Male');
+            })
             ->addColumn('actions', function ($recipient) {
                 return '<a class="dropdown-button btn red" href="#" data-beloworigin="true" data-activates="actions'.$recipient->id.'">More</a>
                         <ul id="actions'.$recipient->id.'" class="dropdown-content">

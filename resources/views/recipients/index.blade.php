@@ -15,6 +15,7 @@
                     <tr>
                         <th>Recipient Name</th>
                         <th>Recipient Email</th>
+                        <th>Recipient Gender</th>
                         <th>Date Added</th>
                         <th>Actions</th>
                     </tr>

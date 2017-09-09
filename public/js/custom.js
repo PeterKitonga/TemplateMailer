@@ -47,7 +47,7 @@ appRender = {
         $('#recipients-table').DataTable({
             serverSide: true,
             ajax: '/datatables/fetch/recipients',
-            order: [[2, 'desc']],
+            order: [[3, 'desc']],
             dom: 'Brtip',
             buttons: [
                 {extend: 'pageLength'},
@@ -81,6 +81,7 @@ appRender = {
             columns : [
                 {data:'mail_recipient_name', name:'mail_recipient_name'},
                 {data:'mail_recipient_email', name:'mail_recipient_email'},
+                {data:'gender_name', name:'mail_recipient_gender', searchable:false, defaultContent: '<i>Not Found</i>'},
                 {data:'created_at', name:'created_at'},
                 {data:'actions', name:'actions', orderable: false, searchable:false}
             ],
