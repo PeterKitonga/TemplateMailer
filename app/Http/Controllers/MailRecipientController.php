@@ -25,13 +25,17 @@ class MailRecipientController extends Controller
     {
         $this->validate($request, [
             'mail_recipient_name' => 'required',
-            'mail_recipient_email' => 'required|email|max:255|unique:mail_recipients'
+            'mail_recipient_email' => 'required|email|max:255|unique:mail_recipients',
+            'mail_recipient_gender' => 'required',
+            'mail_recipient_title' => 'required'
         ]);
 
         $recipient = new MailRecipient([
             'user_id' => $request->user()->id,
-            'mail_recipient_name' => ucwords($request->get('mail_recipient_name')),
+            'mail_recipient_name' => ucwords(trim($request->get('mail_recipient_name'))),
             'mail_recipient_email' => trim($request->get('mail_recipient_email')),
+            'mail_recipient_gender' => $request->get('mail_recipient_gender'),
+            'mail_recipient_title' => trim($request->get('mail_recipient_title')),
             'mail_recipient_is_business_owner' => $request->has('mail_recipient_is_business_owner'),
             'mail_recipient_company_name' => trim($request->get('mail_recipient_company_name')),
             'mail_recipient_company_position' => trim($request->get('mail_recipient_company_position'))
@@ -48,15 +52,19 @@ class MailRecipientController extends Controller
     {
         $this->validate($request, [
             'mail_recipient_name' => 'required',
-            'mail_recipient_email' => 'required'
+            'mail_recipient_email' => 'required',
+            'mail_recipient_gender' => 'required',
+            'mail_recipient_title' => 'required'
         ]);
 
         $recipientId = $request->get('recipient_id');
 
         $recipient = MailRecipient::query()->findOrFail($recipientId);
         $recipient -> update([
-            'mail_recipient_name' => ucwords($request->get('mail_recipient_name')),
+            'mail_recipient_name' => ucwords(trim($request->get('mail_recipient_name'))),
             'mail_recipient_email' => trim($request->get('mail_recipient_email')),
+            'mail_recipient_gender' => $request->get('mail_recipient_gender'),
+            'mail_recipient_title' => trim($request->get('mail_recipient_title')),
             'mail_recipient_is_business_owner' => $request->has('mail_recipient_is_business_owner'),
             'mail_recipient_company_name' => trim($request->get('mail_recipient_company_name')),
             'mail_recipient_company_position' => trim($request->get('mail_recipient_company_position'))
