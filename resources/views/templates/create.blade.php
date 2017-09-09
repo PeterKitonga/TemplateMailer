@@ -49,7 +49,7 @@
                         <div id="attachment-name-section" class="col m12 hide">
                             <div class="row">
                                 <div class="input-field col m12 {{ $errors->has('mail_attachment_name') ? 'has-error' : '' }}">
-                                    <input type="text" name="mail_attachment_name" id="mail-attachment-name" class="validate" placeholder="Mail Attachment File Name">
+                                    <input type="text" name="mail_attachment_name" id="mail-attachment-name" placeholder="Mail Attachment File Name">
                                     {!! $errors->has('mail_attachment_name') ? $errors->first('mail_attachment_name', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                                 </div>
 
@@ -87,7 +87,7 @@
                                 <div class="file-field input-field col m12">
                                     <div class="btn">
                                         <span>Browse</span>
-                                        <input type="file" name="mail_attachment_file_url" required>
+                                        <input type="file" name="mail_attachment_file_url">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Click here to add file...">
@@ -221,7 +221,7 @@
                 {
                     valueArray = [];
                 } else {
-                    valueArray = $.parseJSON(JSON.stringify(variableData));
+                    valueArray = $.parseJSON(JSON.stringify(valueData));
                 }
 
                 variableArray.push({"tag" : variable});
