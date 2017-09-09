@@ -45,8 +45,8 @@ class SendMail extends Command
         $now = Carbon::now();
 
         $schedules = MailSchedule::query()
-            ->where('schedule_date', '=', $now->format('Y-m-d'))
-            ->where('schedule_time', '=', $now->format('H:i:s'))
+//            ->where('schedule_date', '=', $now->format('Y-m-d'))
+//            ->where('schedule_time', '=', $now->format('H:i:s'))
             ->with('mailTemplate', 'mailRecipients')
             ->get();
 
