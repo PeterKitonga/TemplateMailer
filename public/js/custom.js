@@ -97,11 +97,19 @@ appRender = {
                     var $modal = $('#modal-edit-recipient');
                     console.log(row);
 
-                    $modal.find('h5').html('Edit Recipient: '+row.mail_recipient_name);
+                    $modal.find('h5').html('Edit Recipient: ' + row.mail_recipient_name);
                     $modal.find("#edit-recipient-form").attr('action', '/recipients/update');
                     $modal.find('input[name=recipient_id]').val(row.id);
                     $modal.find('input[name=mail_recipient_name]').val(row.mail_recipient_name);
                     $modal.find('input[name=mail_recipient_email]').val(row.mail_recipient_email);
+                    if (row.mail_recipient_gender === 1){
+                        $modal.find('input[id=mail-recipient-gender3]').attr('checked', true);
+                    } else if (row.mail_recipient_gender === 2) {
+                        $modal.find('input[id=mail-recipient-gender4]').attr('checked', true);
+                    } else {
+                        $modal.find('input[name=mail_recipient_gender]').removeAttr('checked');
+                    }
+                    $modal.find('input[name=mail_recipient_title]').val(row.mail_recipient_title);
                     if (row.mail_recipient_is_business_owner === 1) {
                         $modal.find('input[name=mail_recipient_is_business_owner]').attr('checked', true);
                         $modal.find('#business-details-section').removeClass('hide');
