@@ -27,9 +27,14 @@ Route::get('test/recipients', function () {
         ->with('mailTemplate', 'mailRecipients')
         ->first();
 
-    $variables = array_pluck(json_decode($schedule->toArray()['mail_template']['mail_attachment_file_variables']), 'tag');
+    $templates = $schedule->toArray()['mail_recipients'];
+    $variables = $schedule->toArray()['mail_template']['mail_attachment_file_variable_values'];
 
-    return $schedule;
+    $value = array_map(function($array) use ($variables) {
+        return array_intersect_key($array, array_flip($variables));
+    }, $templates);
+
+    return $value;
 });
 
 Route::get('test/role/{id}', function ($id) {
