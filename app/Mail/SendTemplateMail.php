@@ -47,7 +47,7 @@ class SendTemplateMail extends Mailable
             $mail = $this->subject($this->template['mail_subject'])->view('emails.mail')
                 ->with([
                     'subject' => $this->template['mail_subject'],
-                    'title' => str_replace('{{name}}', $this->recipient['mail_recipient_name'], $this->template['mail_title']),
+                    'title' => str_replace('{{title}}', $this->recipient['mail_recipient_title'], $this->template['mail_title']),
                     'body' => str_replace('{{company}}', $this->recipient['mail_recipient_company_name'], $this->template['mail_body_content'])
                 ])
                 ->attach($this->filePath, ['as' => $this->template['mail_attachment_name'].'.pdf', 'mime' => 'application/pdf']);
@@ -55,7 +55,7 @@ class SendTemplateMail extends Mailable
             $mail = $this->subject($this->template['mail_subject'])->view('emails.mail')
                 ->with([
                     'subject' => $this->template['mail_subject'],
-                    'title' => str_replace('{{name}}',$this->recipient['mail_recipient_name'], $this->template['mail_title']),
+                    'title' => str_replace('{{title}}',$this->recipient['mail_recipient_title'], $this->template['mail_title']),
                     'body' => str_replace('{{company}}',$this->recipient['mail_recipient_company_name'], $this->template['mail_body_content'])
                 ]);
         }
