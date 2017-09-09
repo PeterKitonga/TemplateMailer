@@ -24,6 +24,11 @@ class MailTemplate extends Model
         'mail_attachment_content'
     ];
 
+    protected $casts = [
+        'mail_attachment_file_variables' => 'array',
+        'mail_attachment_file_variable_values' => 'array',
+    ];
+
     protected $dates = ['deleted_at'];
 
     public function user()
