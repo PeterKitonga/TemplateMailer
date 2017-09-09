@@ -9,7 +9,16 @@ class MailRecipient extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'mail_recipient_name', 'mail_recipient_email', 'mail_recipient_is_business_owner', 'mail_recipient_company_name', 'mail_recipient_company_position'];
+    protected $fillable = [
+        'user_id',
+        'mail_recipient_name',
+        'mail_recipient_email',
+        'mail_recipient_gender',
+        'mail_recipient_title',
+        'mail_recipient_is_business_owner',
+        'mail_recipient_company_name',
+        'mail_recipient_company_position'
+    ];
 
     protected $dates = ['deleted_at'];
 
