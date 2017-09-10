@@ -25,6 +25,21 @@
         </script>
     </head>
     <body>
+        <div class="preloader-background">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-red-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <nav class="red">
             <div class="nav-wrapper">
                 <a href="{{ url('/') }}" class="brand-logo">{{ config('app.name', 'Laravel') }}</a>
@@ -89,5 +104,14 @@
         </script>
         <script src="{!! asset('js/custom.js') !!}"></script>
         @stack('scripts')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                $('.preloader-background').delay(500).fadeOut('slow');
+
+                $('.preloader-wrapper')
+                    .delay(500)
+                    .fadeOut();
+            });
+        </script>
     </body>
 </html>

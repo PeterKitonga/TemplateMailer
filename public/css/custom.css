@@ -28,3 +28,16 @@ p.options {
     height: 80px;
     margin: 0 24px;
 }
+
+.preloader-background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
