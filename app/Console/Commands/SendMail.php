@@ -7,6 +7,7 @@ use App\MailSchedule;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Facades\Log;
 
 class SendMail extends Command
 {
@@ -45,10 +46,12 @@ class SendMail extends Command
         $now = Carbon::now();
 
         $schedules = MailSchedule::query()
-            ->where('schedule_date', '=', $now->format('Y-m-d'))
-            ->where('schedule_time', '=', $now->format('H:i:s'))
+            ->where('schedule_date', 'like', '%'.$now->format('Y-m-d').'%')
+            ->where('schedule_time', 'like', '%'.$now->format('H:i').'%')
             ->with('mailTemplate', 'mailRecipients')
             ->get();
+
+        Log::info($schedules->toArray());
 
         if (count($schedules) > 0)
         {
