@@ -31,10 +31,10 @@
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="ti-menu"></i></a>
                 <ul class="side-nav" id="mobile-demo">
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li {!! Request::is('login') ? 'class="active"' : '' !!}><a href="{{ url('/login') }}">Login</a></li>
                     @else
-                        <li><a href="{{ url('/recipients') }}">Recipients</a></li>
-                        <li><a href="{{ url('/templates') }}">Templates</a></li>
+                        <li {!! Request::is('recipients*') ? 'class="active"' : '' !!}><a href="{{ url('/recipients') }}">Recipients</a></li>
+                        <li {!! Request::is('templates*') ? 'class="active"' : '' !!}><a href="{{ url('/templates') }}">Templates</a></li>
                         <li>
                             <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
                                 Logout
@@ -48,10 +48,10 @@
                 </ul>
                 <ul class="right hide-on-med-and-down">
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li {!! Request::is('login') ? 'class="active"' : '' !!}><a href="{{ url('/login') }}">Login</a></li>
                     @else
-                        <li><a href="{{ url('/recipients') }}">Recipients</a></li>
-                        <li><a href="{{ url('/templates') }}">Templates</a></li>
+                        <li {!! Request::is('recipients*') ? 'class="active"' : '' !!}><a href="{{ url('/recipients') }}">Recipients</a></li>
+                        <li {!! Request::is('templates*') ? 'class="active"' : '' !!}><a href="{{ url('/templates') }}">Templates</a></li>
                         <li>
                             <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
                                 Logout
