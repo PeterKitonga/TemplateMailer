@@ -84,6 +84,19 @@ class MailTemplateController extends Controller
 
         $templateId = $request->get('template_id');
 
+        $mailVariables = $request->get('mail_attachment_file_variables') == null ? null : array_pluck(json_decode($request->get('mail_attachment_file_variables')), 'tag');
+        $mailValues = $request->get('mail_attachment_file_variable_values') == null ? null : array_pluck(json_decode($request->get('mail_attachment_file_variable_values')), 'tag');
+
+        $attachment = $request->file('mail_attachment_file_url');
+        if ($attachment !== null)
+        {
+            $attachmentName = mt_rand(100000, 999999).'.'.$attachment->getClientOriginalExtension();
+            $attachment->move(storage_path('templates'), $attachmentName);
+            $attachmentPath = storage_path('templates/').$attachmentName;
+        } else {
+            $attachmentPath = null;
+        }
+
         $template = MailTemplate::query()->findOrFail($templateId);
         $template->update([
             'mail_tag' => $request->get('mail_tag'),
@@ -92,6 +105,9 @@ class MailTemplateController extends Controller
             'mail_body_content' => $request->get('mail_body_content'),
             'mail_has_attachment' => $request->has('mail_has_attachment'),
             'mail_attachment_name' => trim($request->get('mail_attachment_name')),
+            'mail_attachment_file_variables' => $mailVariables,
+            'mail_attachment_file_variable_values' => $mailValues,
+            'mail_attachment_file_url' => $attachmentPath,
             'mail_attachment_content' => $request->get('mail_attachment_content')
         ]);
 

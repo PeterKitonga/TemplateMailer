@@ -36,6 +36,7 @@
                         </div>
 
                         <div class="input-field col m12 {{ $errors->has('mail_body_content') ? 'has-error' : '' }}">
+                            <p>Mail Body:</p>
                             <textarea name="mail_body_content" id="mail-body-content" class="materialize-textarea editor" title="Mail Body"></textarea>
                             {!! $errors->has('mail_body_content') ? $errors->first('mail_body_content', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                         </div>
@@ -56,8 +57,8 @@
                                 <div class="input-field col m10 {{ $errors->has('mail_attachment_file_variables') ? 'has-error' : '' }}">
                                     <div class="chips variables">Click the icon to add variables to be changed</div>
                                     <div class="chips values hide"></div>
-                                    <input type="hidden" name="mail_attachment_file_variables" id="mail-attachment-file-variables" value="[]">
-                                    <input type="hidden" name="mail_attachment_file_variable_values" id="mail-attachment-file-variable-values" value="[]">
+                                    <input type="hidden" name="mail_attachment_file_variables" id="mail-attachment-file-variables" value="">
+                                    <input type="hidden" name="mail_attachment_file_variable_values" id="mail-attachment-file-variable-values" value="">
                                     {!! $errors->has('mail_attachment_file_variables') ? $errors->first('mail_attachment_file_variables', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                                 </div>
 
@@ -99,6 +100,7 @@
                         <div id="attachment-content-section" class="col m12 hide">
                             <div class="row">
                                 <div class="input-field col m12 {{ $errors->has('mail_attachment_content') ? 'has-error' : '' }}">
+                                    <p>Mail Attachment Content:</p>
                                     <textarea name="mail_attachment_content" id="mail-attachment-content" class="materialize-textarea editor" title="Mail Attachment Content"></textarea>
                                     {!! $errors->has('mail_attachment_content') ? $errors->first('mail_attachment_content', '<span class="red-text text-darken-2">:message</span>') : '' !!}
                                 </div>
