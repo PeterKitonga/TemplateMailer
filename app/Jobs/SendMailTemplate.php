@@ -53,6 +53,7 @@ class SendMailTemplate implements ShouldQueue
         {
             $templateProcessor = new TemplateProcessor($this->template['mail_attachment_file_url']);
             $templateProcessor->setValue($variables, array_intersect_key($this->recipient, array_flip($values)));
+            $templateProcessor->setValue('{{date}}', Carbon::today()->format('jS M Y'));
             $templateProcessor->saveAs($wordFile);
 
             shell_exec(env('LIBREOFFICE_DIR').' --headless --convert-to pdf '.$wordFile.' --outdir '.storage_path('templates'));
